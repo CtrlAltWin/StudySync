@@ -1,16 +1,15 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import CourseDetails from "./components/CourseDetails";
-import Dashboard from "./components/Dashboard";
-import CourseList from "./components/CourseList";
 import {Outlet} from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./utils/store"
 
 const App = () => {
   return (
-    <div>
-      <Navbar />
+    <Provider store={store}>
+      <Navbar/>
       <Outlet/>
-    </div>
+    </Provider>
   );
 };
 

@@ -1,88 +1,126 @@
-import { useEffect, useState } from "react";
-import { fetchCourses } from "../utils/api";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import ShimmerDashboard from "./ShimmerDashboard";
-import { StarIcon } from "@heroicons/react/16/solid";
-const Dashboard = () => {
-  const [user, setUser] = useState({
-    id: 113,
-    name: "Saurabh Singh",
-    progress: 45,
-  }); // Mock User Data
-  const [courses, setCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
+import { CheckIcon } from "@heroicons/react/24/solid";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCourses, fetchStudentById } from "../utils/api";
+import { setUser, setLoading, setCourses } from "../utils/Slices/studentSlice";
 
+const Dashboard = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // Assumed logged-in user ID
+  const userId = 103;
+  // Fetching required data and updating Redux store using IIFE inside useEffect
   useEffect(() => {
-    const getCourses = async () => {
+    (async () => {
+      dispatch(setLoading(true));
       try {
-        const data = await fetchCourses();
-        const enrolledCourses = data.filter((course) =>
-          course.students.some((student) => student.id === user.id)
+        const allCourses = await fetchCourses();
+        const loggedInStudent = await fetchStudentById(userId);
+        const enrolledCourses = allCourses.filter((course) =>
+          course.students.some((student) => student.id === loggedInStudent.id)
         );
-        setCourses(enrolledCourses);
+        dispatch(setUser(loggedInStudent));
+        dispatch(setCourses(enrolledCourses));
       } catch (error) {
-        console.error("Error fetching courses");
+        navigate("/error");
       } finally {
-        setLoading(false);
+        dispatch(setLoading(false));
       }
-    };
-    getCourses();
-  }, [user.id]);
+    })();
+  }, []);
+
+  // subscribing to the Redux store
+  const user = useSelector((state) => state.student.user);
+  const courses = useSelector((state) => state.student.courses);
+  const loading = useSelector((state) => state.student.loading);
 
   return (
-    <div className="w-full h-full min-h-screen p-4 overflow-hidden mt-5">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">
-        Welcome back, <span className="text-blue-500">{user.name}</span> !
-      </h1>
-
-      {/* Enrolled Courses */}
-      <div className="bg-white 50 p-6 shadow-md rounded-lg">
-        {loading ? (
-          <ShimmerDashboard />
-        ) : courses.length > 0 ? (
-          <ul className="space-y-4">
-            <h2 className="text-xl font-semibold text-gray-100 bg-blue-500 text-center rounded-lg p-1 mb-4">
+    <div className="w-full h-full min-h-screen mt-4 overflow-hidden flex justify-center">
+      {/* Increased width by using max-w-6xl */}
+      <div className="bg-white p-8 shadow-xl rounded-xl max-w-6xl w-full mx-auto">
+        {courses.length > 0 ? (
+          <ul className="space-y-6">
+            {/* welcome message */}
+            <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">
+              Welcome back, <span className="text-blue-500">{user.name}</span>!
+            </h1>
+            <h2 className="text-xl font-semibold text-white bg-gradient-to-r from-gray-400 to-gray-500 text-center rounded-lg p-3 mb-6 shadow-md">
               Your Enrolled Courses
             </h2>
-            {courses.map((course) => (
-              <li
-                key={course.id}
-                className="flex flex-col sm:flex-row justify-between items-center p-4 bg-gray-100 rounded-lg shadow-sm"
-              >
-                <div className="flex items-center w-full sm:w-auto mb-4 sm:mb-0">
-                  <img
-                    src={course.thumbnail}
-                    alt={course.name}
-                    className="w-16 h-16 object-cover rounded-md mr-4"
-                  />
-                  <div>
-                    <h3 className="text-lg font-medium">{course.name}</h3>
-                    <p className="text-gray-600 text-sm">
-                      Instructor: {course.instructor}
-                    </p>
-                    <p className="flex mt-1 bg-blue-400 w-12 text-gray-100 text-sm px-2 rounded-lg">
-                      {course.rating || "new"}
-                      <StarIcon width={20} />
-                    </p>
+            {courses.map((course) => {
+              const student = course.students.find(
+                (student) => student.id === user.id
+              );
+              const studentProgress = student?.progress || 0;
+              return (
+                <li
+                  key={course.id}
+                  className="flex flex-col sm:flex-row justify-between items-center p-5 bg-gray-100 rounded-lg shadow-lg hover:shadow-xl transition"
+                >
+                  {/* Course Details */}
+                  <div className="flex items-center w-full sm:w-auto mb-4 sm:mb-0">
+                    <img
+                      src={course.thumbnail}
+                      alt={course.name}
+                      className="w-20 h-20 object-cover rounded-lg mr-5 border border-gray-300 shadow-sm"
+                    />
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        {course.name}
+                      </h3>
+                      <p className="text-gray-600 text-sm">
+                        Instructor: {course.instructor}
+                      </p>
+                      {/* Rating of course */}
+                      <p className="flex items-center mt-2 w-12 bg-green-500 text-white text-sm  px-2 py-1 rounded-lg shadow">
+                        {course.rating || "New"}⭐
+                      </p>
+                    </div>
                   </div>
-                </div>
-                <div className="w-full sm:w-40">
-                  <div className="w-full bg-gray-300 rounded-full h-2.5">
-                    <div
-                      className="bg-green-400 h-2.5 rounded-full"
-                      style={{
-                        width: `${
-                          course.students.find((s) => s.id === user.id)
-                            ?.progress || 0
-                        }%`,
-                      }}
-                    ></div>
+                  {/* Progress Bar & Completion Button */}
+                  <div className="w-full sm:w-48">
+                    <div className="w-full bg-gray-300 rounded-full h-3 shadow-inner">
+                      <div
+                        className={`h-3 rounded-full transition-all duration-300 ${
+                          studentProgress >= 80
+                            ? "bg-green-500"
+                            : "bg-yellow-400"
+                        }`}
+                        style={{ width: `${studentProgress}%` }}
+                      ></div>
+                    </div>
+                    <p className="text-center text-sm text-gray-700 mt-2 font-medium">
+                      Progress: {studentProgress}%
+                    </p>
+
+                    {/* mark as complete button and message */}
+                    {studentProgress >= 80 && studentProgress < 100 ? (
+                      <button className="mt-3 flex items-center justify-center w-full px-4 py-2 bg-blue-500 text-white rounded-lg text-sm transition shadow-md">
+                        Mark as Completed{" "}
+                        <CheckIcon width={18} className="ml-2" />
+                      </button>
+                    ) : studentProgress < 80 ? (
+                      <p className="mt-3 text-center text-sm text-blue-400 font-semibold">
+                        Complete at least 80% to mark as completed.
+                      </p>
+                    ) : (
+                      <p className="mt-3 text-center text-sm text-green-600 font-semibold flex items-center justify-center">
+                        ✅ Marked as Completed
+                      </p>
+                    )}
                   </div>
-                </div>
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
+        ) : loading ? (
+          <ShimmerDashboard />
         ) : (
-          <p className="text-gray-500">You are not enrolled in any courses.</p>
+          <p className="text-gray-500 text-center text-lg font-medium">
+            You are not enrolled in any courses.
+          </p>
         )}
       </div>
     </div>

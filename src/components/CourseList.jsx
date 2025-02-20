@@ -2,38 +2,49 @@ import { useEffect, useState } from "react";
 import { fetchCourses } from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import ShimmerCourseList from "./ShimmerCourseList";
+import { useDispatch, useSelector } from "react-redux";
+import { setCourses, setLoading } from "../utils/Slices/coursesSlice";
+
+
 const CourseList = () => {
-  const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [showTopRated, setShowTopRated] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   useEffect(() => {
-    const getCourses = async () => {
+    // used IIFE for fetching courses
+    (async () => {
       try {
+        dispatch(setLoading(true));
         const data = await fetchCourses();
-        setCourses(data);
-      } catch (error) {
-        console.error("Error fetching courses");
+        dispatch(setCourses(data));
+      } catch (err) {
+        navigate("/error");
+      } finally {
+        dispatch(setLoading(false));
       }
-    };
-    getCourses();
+    })();
   }, []);
 
+  //subscribing the store
+  const courses = useSelector((store) => store.courses.data);
+  const loading = useSelector((store) => store.courses.loading);
+
+  //filters course based on sesarch or ratings
   const filteredCourses = courses.filter((course) => {
     const matchesSearch =
       course.name.toLowerCase().includes(search.toLowerCase()) ||
       course.instructor.toLowerCase().includes(search.toLowerCase());
-
     const matchesRating = showTopRated ? course.rating >= 4 : true;
-
     return matchesSearch && matchesRating;
   });
 
   return (
     <div className="w-full p-4 bg-gray-50 overflow-auto mt-5">
-      {/* Search & Filter Bar */}
+      {/*Search bar and filter button container->gray colored box*/}
       <div className="flex flex-col sm:flex-row justify-between bg-gradient-to-b from-gray-500 to-gray-600 opacity-90 rounded-xl p-6 items-center mb-6 gap-4">
-        {/* Filter Button */}
+        {/*Filter Button*/}
         <button
           onClick={() => setShowTopRated(!showTopRated)}
           className="min-w-24 w-[30vw] sm:w-[20vw] p-3 rounded-full text-white font-medium transition shadow-md
@@ -41,8 +52,7 @@ const CourseList = () => {
         >
           {showTopRated ? "Show All" : "Rated 4⭐+"}
         </button>
-
-        {/* Search Bar */}
+        {/*Search bar*/}
         <div className="relative w-full sm:w-[55vw] max-w-xl">
           <input
             type="text"
@@ -50,13 +60,14 @@ const CourseList = () => {
             className="w-full py-3 px-6 bg-gray-500 shadow-md rounded-full outline-none transition placeholder-gray-100 backdrop-blur-lg bg-opacity-80 text-gray-100"
             onChange={(e) => setSearch(e.target.value)}
           />
+          {/*Lens Icon in search bar*/}
           <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500">
             🔍
           </div>
         </div>
       </div>
 
-      {/* Course List (Vertical Layout) */}
+      {/*Course List*/}
       <div className="flex flex-col gap-6">
         {filteredCourses.length > 0 ? (
           filteredCourses.map((course) => (
@@ -85,7 +96,7 @@ const CourseList = () => {
                   {course.description}
                 </p>
 
-                {/* Button */}
+                {/*Button to view course details*/}
                 <button
                   onClick={() => {
                     navigate("courseDetails/" + course.id);
@@ -97,8 +108,12 @@ const CourseList = () => {
               </div>
             </div>
           ))
-        ) : (
+        ) : loading ? (
           <ShimmerCourseList />
+        ) : (
+          <div className="p-4 text-center text-xl font-extralight">
+            Oh! we are not able to find courses right now.
+          </div>
         )}
       </div>
     </div>

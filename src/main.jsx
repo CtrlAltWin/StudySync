@@ -5,6 +5,7 @@ import CourseDetails from "./components/CourseDetails";
 import Dashboard from "./components/Dashboard";
 import CourseList from "./components/CourseList";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "./components/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -12,8 +13,9 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <CourseList /> },
-      { path: "courseDetails/:id", element: <CourseDetails /> },
-      { path: "dashboard", element: <Dashboard /> },
+      { path: "/courseDetails/:id", element: <CourseDetails /> },
+      { path: "/dashboard", element: <Dashboard /> },
+      { path: "/error", element: <ErrorPage /> }
     ],
   },
 ]);
