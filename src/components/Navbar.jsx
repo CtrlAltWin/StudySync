@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <div className="h-20 flex justify-between items-center px-4 shadow-sm bg-gradient-to-b from-gray-100 to-gray-200">
-      <div className="font-light text-2xl sm:text-[3vmin] cursor-pointer">StudySync</div>
+      <div className="font-light text-2xl sm:text-[3vmin] cursor-pointer">
+        StudySync
+      </div>
       <div className="flex gap-8 text-lg sm:text-[2.4vmin] items-center font-light text-gray-700">
-        <Link to="/" className="hidden sm:block transition hover:text-white hover:bg-gray-400 p-2 rounded-lg">
+        <Link
+          to="/"
+          className="hidden sm:block transition hover:text-white hover:bg-gray-400 p-2 rounded-lg"
+        >
           Courses
         </Link>
         <Link

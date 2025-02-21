@@ -1,8 +1,91 @@
-# React + Vite
+# StudySync - React Developer Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🚀 Project Overview
+StudySync is a **React-based Course Management System** where users can:
+- View a **list of courses** with search and filtering.
+- See **detailed course information** including syllabus.
+- Track **enrolled courses and progress** via a student dashboard.
+- Experience **smooth UI transitions** with Shimmer loading placeholders.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📂 Folder Structure
+```
+📦 study-sync
+ ┣ 📂 src
+ ┃ ┣ 📂 components
+ ┃ ┃ ┣ 📜 Navbar.jsx
+ ┃ ┃ ┣ 📜 CourseList.jsx
+ ┃ ┃ ┣ 📜 CourseDetails.jsx
+ ┃ ┃ ┣ 📜 Dashboard.jsx
+ ┃ ┃ ┣ 📜 ShimmerCourseList.jsx
+ ┃ ┃ ┣ 📜 ShimmerCourseDetails.jsx
+ ┃ ┃ ┗ 📜 ShimmerDashboard.jsx
+ ┃ ┣ 📂 utils
+ ┃ ┃ ┣ 📜 api.js
+ ┃ ┃ ┗ 📜 store.js
+ ┃ ┣ 📜 App.jsx
+ ┃ ┣ 📜 index.js
+ ┗ 📜 package.json
+```
+
+---
+
+## 🔧 Tech Stack
+- **Frontend:** React, Tailwind CSS
+- **State Management:** Redux Toolkit
+- **Routing:** React Router v6
+- **UI Enhancements:** Shimmer UI for loading
+
+---
+
+## ⚙️ Installation & Setup
+1️⃣ **Clone the repository**
+```bash
+git clone https://github.com/CtrlAltWin/StudySync.git
+cd study-sync
+```
+2️⃣ **Install dependencies**
+```bash
+npm install
+```
+3️⃣ **Start the project**
+```bash
+npm run dev
+```
+
+---
+
+## 🌟 Features
+- 🔎 **Course Search & Filtering** (4⭐+ Rated Courses)
+- 📖 **Detailed Course View** with expandable syllabus
+- 📊 **Student Dashboard** with progress tracking
+- 🎨 **Shimmer UI** for smooth loading experience
+
+---
+
+## 🔗 Deployment
+Live Demo: [StudySync on Vercel](https://study-sync-teal.vercel.app/)
+
+---
+
+## 📜 Simulated API
+This project uses a **mock API** (`utils/api.js`) to simulate fetching course data. The API functions return **predefined JSON data** with a small delay to mimic real-world requests.
+
+---
+
+## 📩 Contact
+For any queries, feel free to reach out:
+📧 Email: raunakkumar7245@gmail.com
+
+---
+
+## 📱 Mobile Screenshots
+### 📌 Course List Page  
+![Course List](public/courseList.jpg)
+
+### 📌 Course Details Page  
+![Course Details](public/courseDetails.jpg)
+
+### 📌 Dashboard  
+![Dashboard](public/dashboard.jpg)
