@@ -1,23 +1,21 @@
-//fully completed
-
-import React from "react";
 import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
-    <div className="h-24 flex justify-between items-center px-8 shadow-lg bg-gray-100 rounded-sm">
-      <div className="font-light text-2xl sm:text-[3vmin]">StudySync</div>
+    <div className="h-20 flex justify-between items-center px-4 shadow-sm bg-gradient-to-b from-gray-100 to-gray-200">
+      <div className="font-light text-2xl sm:text-[3vmin] cursor-pointer">StudySync</div>
       <div className="flex gap-8 text-lg sm:text-[2.4vmin] items-center font-light text-gray-700">
-        <Link to="/" className="hidden sm:block hover:text-blue-500 transition">
+        <Link to="/" className="hidden sm:block transition hover:text-white hover:bg-gray-400 p-2 rounded-lg">
           Courses
         </Link>
         <Link
           to="/Dashboard"
-          className="hidden sm:block hover:text-blue-500 transition"
+          className="hidden sm:block hover:text-white transition hover:bg-gray-400 p-2 rounded-lg"
         >
           Dashboard
         </Link>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu-> 3 stacked lines */}
         <details className="sm:hidden relative cursor-pointer z-10">
           <summary className="list-none flex items-center">
             <svg

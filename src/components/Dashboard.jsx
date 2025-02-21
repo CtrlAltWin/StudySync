@@ -9,8 +9,10 @@ import { setUser, setLoading, setCourses } from "../utils/Slices/studentSlice";
 const Dashboard = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   // Assumed logged-in user ID
   const userId = 103;
+
   // Fetching required data and updating Redux store using IIFE inside useEffect
   useEffect(() => {
     (async () => {
@@ -37,14 +39,13 @@ const Dashboard = () => {
   const loading = useSelector((state) => state.student.loading);
 
   return (
-    <div className="w-full h-full min-h-screen mt-4 overflow-hidden flex justify-center">
-      {/* Increased width by using max-w-6xl */}
+    <div className="w-full pt-4 overflow-hidden h-[calc(100vh-5rem)] overflow-y-scroll overflow-x-hidden">
       <div className="bg-white p-8 shadow-xl rounded-xl max-w-6xl w-full mx-auto">
         {courses.length > 0 ? (
           <ul className="space-y-6">
             {/* welcome message */}
             <h1 className="text-4xl font-bold text-gray-900 mb-6 text-center">
-              Welcome back, <span className="text-blue-500">{user.name}</span>!
+              Welcome back, <span className="text-blue-500">{user.name}!</span>
             </h1>
             <h2 className="text-xl font-semibold text-white bg-gradient-to-r from-gray-400 to-gray-500 text-center rounded-lg p-3 mb-6 shadow-md">
               Your Enrolled Courses
@@ -79,8 +80,9 @@ const Dashboard = () => {
                       </p>
                     </div>
                   </div>
-                  {/* Progress Bar & Completion Button */}
+                  {/* progress bar & mark as completed button - section */}
                   <div className="w-full sm:w-48">
+                    {/* progress bar */}
                     <div className="w-full bg-gray-300 rounded-full h-3 shadow-inner">
                       <div
                         className={`h-3 rounded-full transition-all duration-300 ${

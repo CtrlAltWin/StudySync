@@ -5,7 +5,6 @@ import ShimmerCourseList from "./ShimmerCourseList";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourses, setLoading } from "../utils/Slices/coursesSlice";
 
-
 const CourseList = () => {
   const [search, setSearch] = useState("");
   const [showTopRated, setShowTopRated] = useState(false);
@@ -41,23 +40,24 @@ const CourseList = () => {
   });
 
   return (
-    <div className="w-full p-4 bg-gray-50 overflow-auto mt-5">
+    <div className="w-full p-4 bg-gray-50 pt-5 h-[calc(100vh-5rem)] overflow-y-scroll overflow-x-hidden">
       {/*Search bar and filter button container->gray colored box*/}
       <div className="flex flex-col sm:flex-row justify-between bg-gradient-to-b from-gray-500 to-gray-600 opacity-90 rounded-xl p-6 items-center mb-6 gap-4">
         {/*Filter Button*/}
         <button
           onClick={() => setShowTopRated(!showTopRated)}
-          className="min-w-24 w-[30vw] sm:w-[20vw] p-3 rounded-full text-white font-medium transition shadow-md
-            bg-gray-500"
+          className="min-w-24 w-[30vw] sm:w-[20vw] p-3 rounded-full text-white font-medium transition-all 
+             shadow-md active:scale-95 active:opacity-80 bg-gray-500"
         >
           {showTopRated ? "Show All" : "Rated 4⭐+"}
         </button>
+
         {/*Search bar*/}
         <div className="relative w-full sm:w-[55vw] max-w-xl">
           <input
             type="text"
             placeholder="search course, e.g. web dev..."
-            className="w-full py-3 px-6 bg-gray-500 shadow-md rounded-full outline-none transition placeholder-gray-100 backdrop-blur-lg bg-opacity-80 text-gray-100"
+            className="w-full py-3 px-6 bg-gray-500 shadow-md rounded-full outline-none transition placeholder-gray-100 backdrop-blur-lg bg-opacity-80 text-gray-100 active:scale-101"
             onChange={(e) => setSearch(e.target.value)}
           />
           {/*Lens Icon in search bar*/}

@@ -5,7 +5,6 @@ const coursesSlice = createSlice({
   initialState: {
     data: [],
     loading: false,
-    error: null,
   },
   reducers: {
     setCourses: (state, action) => {
@@ -14,11 +13,8 @@ const coursesSlice = createSlice({
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
   },
 });
 
-export const { setCourses, setLoading, setError } = coursesSlice.actions;
+export const { setCourses, setLoading} = coursesSlice.actions;
 export default coursesSlice.reducer;
