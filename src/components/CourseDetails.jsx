@@ -44,7 +44,7 @@ const CourseDetails = () => {
   }
 
   return (
-    <div className="h-[calc(100vh-5rem)] overflow-y-scroll overflow-x-hidden">
+    <div className="h-[calc(100vh-5rem)] overflow-y-scroll overflow-x-hidden hideScrollbar">
       <div className="w-full max-w-4xl mx-auto p-2 shadow-lg hover:bg-gray-50 rounded-lg scale-95">
         {/* course image */}
         <img

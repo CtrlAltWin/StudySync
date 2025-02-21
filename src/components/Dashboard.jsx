@@ -39,7 +39,7 @@ const Dashboard = () => {
   const loading = useSelector((state) => state.student.loading);
 
   return (
-    <div className="w-full pt-4 overflow-hidden h-[calc(100vh-5rem)] overflow-y-scroll overflow-x-hidden">
+    <div className="w-full pt-4 overflow-hidden h-[calc(100vh-5rem)] overflow-y-scroll overflow-x-hidden hideScrollbar">
       <div className="bg-white p-8 shadow-xl rounded-xl max-w-6xl w-full mx-auto">
         {courses.length > 0 ? (
           <ul className="space-y-6">

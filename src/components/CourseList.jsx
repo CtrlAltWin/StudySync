@@ -40,7 +40,7 @@ const CourseList = () => {
   });
 
   return (
-    <div className="w-full p-4 bg-gray-50 pt-5 h-[calc(100vh-5rem)] overflow-y-scroll overflow-x-hidden">
+    <div className="w-full p-4 bg-gray-50 pt-5 h-[calc(100vh-5rem)] overflow-y-scroll overflow-x-hidden hideScrollbar">
       {/*Search bar and filter button container->gray colored box*/}
       <div className="flex flex-col sm:flex-row justify-between bg-gradient-to-b from-gray-500 to-gray-600 opacity-90 rounded-xl p-6 items-center mb-6 gap-4">
         {/*Filter Button*/}

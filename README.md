@@ -1,7 +1,9 @@
 # StudySync - React Developer Assignment
 
 ## 🚀 Project Overview
+
 StudySync is a **React-based Course Management System** where users can:
+
 - View a **list of courses** with search and filtering.
 - See **detailed course information** including syllabus.
 - Track **enrolled courses and progress** via a student dashboard.
@@ -10,6 +12,7 @@ StudySync is a **React-based Course Management System** where users can:
 ---
 
 ## 📂 Folder Structure
+
 ```
 📦 study-sync
  ┣ 📂 src
@@ -32,6 +35,7 @@ StudySync is a **React-based Course Management System** where users can:
 ---
 
 ## 🔧 Tech Stack
+
 - **Frontend:** React, Tailwind CSS
 - **State Management:** Redux Toolkit
 - **Routing:** React Router v6
@@ -40,16 +44,22 @@ StudySync is a **React-based Course Management System** where users can:
 ---
 
 ## ⚙️ Installation & Setup
+
 1️⃣ **Clone the repository**
+
 ```bash
 git clone https://github.com/CtrlAltWin/StudySync.git
 cd study-sync
 ```
+
 2️⃣ **Install dependencies**
+
 ```bash
 npm install
 ```
+
 3️⃣ **Start the project**
+
 ```bash
 npm run dev
 ```
@@ -57,6 +67,7 @@ npm run dev
 ---
 
 ## 🌟 Features
+
 - 🔎 **Course Search & Filtering** (4⭐+ Rated Courses)
 - 📖 **Detailed Course View** with expandable syllabus
 - 📊 **Student Dashboard** with progress tracking
@@ -65,27 +76,18 @@ npm run dev
 ---
 
 ## 🔗 Deployment
+
 Live Demo: [StudySync on Vercel](https://study-sync-teal.vercel.app/)
 
 ---
 
 ## 📜 Simulated API
+
 This project uses a **mock API** (`utils/api.js`) to simulate fetching course data. The API functions return **predefined JSON data** with a small delay to mimic real-world requests.
 
 ---
 
 ## 📩 Contact
+
 For any queries, feel free to reach out:
 📧 Email: raunakkumar7245@gmail.com
-
----
-
-## 📱 Mobile Screenshots
-### 📌 Course List Page  
-![Course List](public/courseList.jpg)
-
-### 📌 Course Details Page  
-![Course Details](public/courseDetails.jpg)
-
-### 📌 Dashboard  
-![Dashboard](public/dashboard.jpg)
