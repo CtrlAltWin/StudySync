@@ -1,6 +1,6 @@
 const ShimmerCourseList = () => (
   <div className="animate-pulse space-y-4">
-    {[...Array(5)].map((_, index) => (
+    {[...Array(10)].map((_, index) => (
       <div
         key={index}
         className="flex items-center p-4 bg-gray-100 rounded-lg shadow-sm"
