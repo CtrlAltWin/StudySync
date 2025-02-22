@@ -31,8 +31,8 @@ const courses = [
       },
     ],
     students: [
-      { id: 101, name: "Alice Johnson", progress: 50 },
-      { id: 102, name: "Bob Williams", progress: 75 },
+      { id: 101, progress: 50 },
+      { id: 102, progress: 75 },
     ],
   },
   {
