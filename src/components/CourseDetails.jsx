@@ -29,8 +29,8 @@ const CourseDetails = () => {
   // subscribing to the redux store
   const { course, loading } = useSelector((store) => store.courseDetails);
 
-  // showing shimmer UI until data is being fetched
-  if (loading) {
+  // showing shimmer UI until data is being fetched and we dont have data available
+  if (!course && loading) {
     return <ShimmerCourseDetails />;
   }
 
