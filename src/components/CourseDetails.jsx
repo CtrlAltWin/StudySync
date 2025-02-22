@@ -13,7 +13,7 @@ const CourseDetails = () => {
 
   // fetching data and updating redux store
   useEffect(() => {
-    (async () => {
+    const fetch = async () => {
       try {
         dispatch(setLoading(true));
         const data = await fetchCourseById(Number(id));
@@ -23,14 +23,17 @@ const CourseDetails = () => {
       } finally {
         dispatch(setLoading(false));
       }
-    })();
+    };
+    if (!course || course.id != id) {
+      fetch();
+    }
   }, []);
 
   // subscribing to the redux store
   const { course, loading } = useSelector((store) => store.courseDetails);
 
-  // showing shimmer UI until data is being fetched and we dont have data available
-  if (!course && loading) {
+  // showing shimmer UI until data is being fetched
+  if (loading) {
     return <ShimmerCourseDetails />;
   }
 
